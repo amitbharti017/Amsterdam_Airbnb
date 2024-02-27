@@ -1,3 +1,3 @@
 from src.logger import logger
 
-logger.info("This is our custom log!")
+logger.info("This is my custom log!")

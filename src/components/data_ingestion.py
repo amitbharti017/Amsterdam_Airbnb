@@ -1,6 +1,7 @@
 import os
 import urllib.request as request
-import zipfile
+import gzip
+import shutil
 from logger import logger
 from utils.common import get_size
 from entity.config_entity import DataIngestionConfig
@@ -23,7 +24,7 @@ class DataIngestion:
         else:
             logger.info(f"file already exists of size: {get_size(Path(self.config.local_data_file))}")
 
-    def extract_zip_fil(self):
+    def extract_gzip_file(self):
         """
         this function extracts the zip file downloaded
         zip_file_path: str
@@ -31,8 +32,10 @@ class DataIngestion:
         """
         unzip_path = self.config.unzip_dir
         os.makedirs(unzip_path, exist_ok=True)
-        with zipfile.Zipfile(self.config.local_data_file,"r") as zip_ref:
-            zip_ref.extractall(unzip_path)
+        with gzip.open(self.config.local_data_file,"r") as f_in:
+            with open(self.config.local_data_file_csv,"wb") as f_out:
+                shutil.copyfileobj(f_in, f_out)
+
 
 
 

@@ -1,0 +1,7 @@
+artifacts_root: artifacts
+
+data_ingestion:
+  root_dir: artifacts/data_ingestion
+  source_URL: http://data.insideairbnb.com/the-netherlands/north-holland/amsterdam/2023-12-12/data/listings.csv.gz
+  local_data_file: artifacts/data_ingestion/listings.csv.gz
+  unzip_dir: artifacts/data_ingestion

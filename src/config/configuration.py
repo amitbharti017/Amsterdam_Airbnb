@@ -24,10 +24,7 @@ class ConfigurationManager:
             source_URL = config.source_URL,
             local_data_file=config.local_data_file,
             local_data_file_csv = config.local_data_file_csv,
-            unzip_dir = config.unzip_dir,
-            root_train_dir= config.root_train_dir,
-            root_val_dir= config.root_val_dir,
-            root_test_dir= config.root_test_dir
+            unzip_dir = config.unzip_dir
         )
 
         return data_ingestion_config
@@ -40,7 +37,9 @@ class ConfigurationManager:
         data_transformation_config = DataTransformationConfig(
             root_dir= config.root_dir,
             data_train_path= config.data_train_path,
-            data_val_path = config.data_val_path)
+            data_val_path = config.data_val_path,
+            data_test_path = config.data_test_path,
+            transformer = config.transformer)
         
         return data_transformation_config
 

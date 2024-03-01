@@ -8,3 +8,13 @@ class DataIngestionConfig:
     local_data_file: Path
     local_data_file_csv: Path
     unzip_dir: Path
+    root_train_dir: Path
+    root_val_dir: Path
+    root_test_dir: Path
+    
+
+@dataclass(frozen=True)
+class DataTransformationConfig:
+    root_dir: Path
+    data_train_path: Path
+    data_val_path: Path

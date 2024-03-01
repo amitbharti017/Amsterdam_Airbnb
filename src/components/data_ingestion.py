@@ -6,10 +6,14 @@ from logger import logger
 from utils.common import get_size
 from entity.config_entity import DataIngestionConfig
 from pathlib import Path
+import pandas as pd
+from sklearn.model_selection import train_test_split
 
 class DataIngestion:
-    def __init__(self,config: DataIngestionConfig):
+    def __init__(self,config: DataIngestionConfig,random_state=810,test_size=0.15):
         self.config = config
+        self.random_state = random_state
+        self.test_size=test_size
 
     def download_file(self):
         """
@@ -35,6 +39,19 @@ class DataIngestion:
         with gzip.open(self.config.local_data_file,"r") as f_in:
             with open(self.config.local_data_file_csv,"wb") as f_out:
                 shutil.copyfileobj(f_in, f_out)
+    
+    def data_spliting(self):
+        data = pd.read_csv(self.config.local_data_file_csv)
+        
+        #spliting the data into train, val and test (0.7, 0.15 0.15) split.
+        train, test = train_test_split(data, test_size=self.test_size, random_state = self.random_state)
+        train, val = train_test_split(train, test_size=self.test_size, random_state=self.random_state)
+
+        train.to_csv(os.path.join(self.config.root_dir,"train.csv"),index = False)
+        val.to_csv(os.path.join(self.config.root_dir,"val.csv"),index = False)
+        test.to_csv(os.path.join(self.config.root_dir,"test.csv"),index = False)
+
+        logger.info("Data splitting done into train, val and test sets")
 
 
 

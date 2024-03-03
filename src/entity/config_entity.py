@@ -17,3 +17,12 @@ class DataTransformationConfig:
     data_val_path: Path
     data_test_path: Path
     transformer: Path
+
+@dataclass(frozen=True)
+class DataTrainerConfig:
+    root_dir: Path
+    data_X_train_path: Path
+    data_y_train_path: Path
+    data_X_val_path: Path
+    data_y_val_path: Path
+    model_name: str

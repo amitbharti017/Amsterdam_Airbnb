@@ -44,19 +44,19 @@ class ConfigurationManager:
         
         return data_transformation_config
     
-    def get_trainer_config(self) ->DataTrainerConfig:
-        config = self.config.model_trainer
+    # def get_trainer_config(self) ->DataTrainerConfig:
+    #     config = self.config.model_trainer
 
-        create_directories([config.root_dir])
+    #     create_directories([config.root_dir])
 
-        model_trainer_config = DataTrainerConfig(
-            root_dir: config.root_dir,
-            data_X_train_path: config.data_X_train_path,
-            data_y_train_path: config.data_y_train_path,
-            data_X_val_path: config.data_X_val_path,
-            data_y_val_path: config.data_y_val_path,
-            model_name: config.model_name)
+    #     model_trainer_config = DataTrainerConfig(
+    #         root_dir: config.root_dir,
+    #         data_X_train_path: config.data_X_train_path,
+    #         data_y_train_path: config.data_y_train_path,
+    #         data_X_val_path: config.data_X_val_path,
+    #         data_y_val_path: config.data_y_val_path,
+    #         model_name: config.model_name)
         
-        return model_trainer_config
+    #     return model_trainer_config
 
 

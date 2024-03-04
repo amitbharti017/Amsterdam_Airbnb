@@ -142,8 +142,9 @@ class DataTransformation:
             "number_of_reviews", 
             "review_scores_rating",
             "availability_365",
-            "minimum_nights"]
-        categorical_columns = ["neighbourhood_cleansed", "room_type"]
+            "minimum_nights"
+            ]
+        categorical_columns = ["room_type","neighbourhood_cleansed"]
         num_pipeline = Pipeline(
             steps=[
                 ("imputer", SimpleImputer(strategy="median")),

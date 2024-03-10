@@ -11,6 +11,7 @@ from xgboost import XGBRegressor
 from sklearn.model_selection import cross_val_score
 from optuna.integration.mlflow import MLflowCallback
 from lightgbm import LGBMRegressor
+from sklearn.metrics import make_scorer
 
 
 class ModelTrainer:
@@ -60,8 +61,11 @@ class ModelTrainer:
                 "num_iterations": trial.suggest_int("num_iterations",70,130)
             }
             model = LGBMRegressor(**params)
-        scores = cross_val_score(model,self.X_train,self.y_train,n_jobs=-1,cv=5,scoring="neg_root_mean_squared_error")
-        rmse = -np.mean(scores)
+        def rmse_function(y_true, y_pred):
+            return -root_mean_squared_error(y_true, y_pred)
+        rmse_scorer = make_scorer(rmse_function, greater_is_better=False)
+        scores = cross_val_score(model,self.X_train,self.y_train,n_jobs=-1,cv=5,scoring=rmse_scorer)
+        rmse = np.mean(scores)
         if rmse < self.best_rmse:
             self.best_rmse = rmse
             self.best_params = params
@@ -74,7 +78,7 @@ class ModelTrainer:
     def optimize_xgboost(self):
         mlflow.set_tracking_uri('http://localhost:5000')          
         study = optuna.create_study(direction="minimize")
-        study.optimize(self.objective,n_trials=1)
+        study.optimize(self.objective,n_trials=1000)
         with mlflow.start_run(run_name = "best_model"):
             best_model_trained = self.best_model.fit(self.X_train,self.y_train)
             mlflow.sklearn.log_model(best_model_trained, "best_model")

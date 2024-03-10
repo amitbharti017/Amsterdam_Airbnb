@@ -25,4 +25,6 @@ class DataTrainerConfig:
     data_y_train_path: Path
     data_X_val_path: Path
     data_y_val_path: Path
-    model_name: str
+    best_model: Path
+    best_model_params: Path
+    best_model_rmse: Path

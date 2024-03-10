@@ -8,11 +8,9 @@ from entity.config_entity import DataTrainerConfig
 class ConfigurationManager:
     def __init__(
             self,
-            config_filepath = CONFIG_FILE_PATH,
-            params_filepath = PARAMS_FILE_PATH
+            config_filepath = CONFIG_FILE_PATH
     ):
         self.config = read_yaml(config_filepath)
-        self.params = read_yaml(params_filepath)
 
         create_directories([self.config.artifacts_root])
 
@@ -55,7 +53,9 @@ class ConfigurationManager:
             data_y_train_path= config.data_y_train_path,
             data_X_val_path= config.data_X_val_path,
             data_y_val_path= config.data_y_val_path,
-            model_name=config.model_name)
+            best_model = config.best_model,
+            best_model_params = config.best_model_params,
+            best_model_rmse = config.best_model_rmse)
         
         return model_trainer_config
 

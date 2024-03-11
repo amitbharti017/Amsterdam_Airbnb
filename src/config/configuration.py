@@ -53,9 +53,9 @@ class ConfigurationManager:
             data_y_train_path= config.data_y_train_path,
             data_X_val_path= config.data_X_val_path,
             data_y_val_path= config.data_y_val_path,
-            best_model = config.best_model,
-            best_model_params = config.best_model_params,
-            best_model_rmse = config.best_model_rmse)
+            best_xgboost_model = config.best_xgboost_model,
+            best_lightgbm_model = config.best_lightgbm_model,
+            best_linear_model = config.best_linear_model)
         
         return model_trainer_config
 

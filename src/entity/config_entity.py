@@ -25,6 +25,6 @@ class DataTrainerConfig:
     data_y_train_path: Path
     data_X_val_path: Path
     data_y_val_path: Path
-    best_model: Path
-    best_model_params: Path
-    best_model_rmse: Path
+    best_xgboost_model: Path
+    best_lightgbm_model: Path
+    best_linear_model: Path

@@ -20,8 +20,14 @@ model_trainer:
   data_y_train_path: "artifacts/data_transformation/y_train.joblib" 
   data_X_val_path: "artifacts/data_transformation/X_val.joblib"
   data_y_val_path: "artifacts/data_transformation/y_val.joblib"
-  best_model: "artifacts/model_trainer/best_model.pkl"
-  best_model_params: "artifacts/model_trainer/best_model_params.pkl"
-  best_model_rmse: "artifacts/model_trainer/best_model_rmse.pkl"
+  best_xgboost_model: "best_xgboost_model.pkl"
+  best_lightgbm_model: "best_lightgbm_model.pkl"
+  best_linear_model: "best_linear_model.pkl"
+
+model_evaluation:
+  root_dir: artifacts/model_evaluation
+  test_data_X_path: "artifacts/data_transformation/X_val.joblib"
+  test_data_y_val_path: "artifacts/data_transformation/y_val.joblib"
+
 
 

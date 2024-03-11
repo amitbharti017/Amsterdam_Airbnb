@@ -23,3 +23,5 @@ model_trainer:
   best_model: "artifacts/model_trainer/best_model.pkl"
   best_model_params: "artifacts/model_trainer/best_model_params.pkl"
   best_model_rmse: "artifacts/model_trainer/best_model_rmse.pkl"
+
+

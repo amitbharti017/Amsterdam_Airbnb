@@ -62,7 +62,7 @@ class ModelTrainer:
             }
             model = LGBMRegressor(**params)
         def rmse_function(y_true, y_pred):
-            return -root_mean_squared_error(y_true, y_pred)
+            return -root_mean_squared_error(np.expm1(y_true), np.expm1(y_pred))
         rmse_scorer = make_scorer(rmse_function, greater_is_better=False)
         scores = cross_val_score(model,self.X_train,self.y_train,n_jobs=-1,cv=5,scoring=rmse_scorer)
         rmse = np.mean(scores)
@@ -78,7 +78,7 @@ class ModelTrainer:
     def optimize_xgboost(self):
         mlflow.set_tracking_uri('http://localhost:5000')          
         study = optuna.create_study(direction="minimize")
-        study.optimize(self.objective,n_trials=1000)
+        study.optimize(self.objective,n_trials=1500)
         with mlflow.start_run(run_name = "best_model"):
             best_model_trained = self.best_model.fit(self.X_train,self.y_train)
             mlflow.sklearn.log_model(best_model_trained, "best_model")

@@ -114,7 +114,7 @@ class ModelTrainer:
     def optimize_xgboost(self):
         mlflow.set_tracking_uri('http://localhost:5000')          
         study = optuna.create_study(direction="minimize")
-        study.optimize(self.objective,n_trials=10)
+        study.optimize(self.objective,n_trials=1500)
         with mlflow.start_run(run_name = "best_xgboost_model"):
             best_xgboost_model_trained = self.best_xgboost_model.fit(self.X_train,self.y_train)
             mlflow.sklearn.log_model(best_xgboost_model_trained, "best_xgboost_model")
@@ -131,9 +131,9 @@ class ModelTrainer:
             mlflow.log_params(self.best_linear_params)
             mlflow.log_metric('rmse', self.best_linear_rmse)
         
-        joblib.dump(best_xgboost_model_trained,os.path.join(self.config.root,self.config.best_xgboost_model))
-        joblib.dump(best_lightgbm_model_trained,os.path.join(self.config.root,self.config.best_lightgbm_model))
-        joblib.dump(best_linear_model_trained,os.path.join(self.config.root,self.config.best_linear_model))
+        joblib.dump(best_xgboost_model_trained,os.path.join(self.config.root_dir,self.config.best_xgboost_model))
+        joblib.dump(best_lightgbm_model_trained,os.path.join(self.config.root_dir,self.config.best_lightgbm_model))
+        joblib.dump(best_linear_model_trained,os.path.join(self.config.root_dir,self.config.best_linear_model))
 
 
 

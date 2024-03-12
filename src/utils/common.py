@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any
 import mlflow
 from sklearn.metrics import root_mean_squared_error
+import numpy as np
 
 @ensure_annotations
 def read_yaml(path_to_yaml: Path) -> ConfigBox:

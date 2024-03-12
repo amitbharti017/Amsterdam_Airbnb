@@ -22,7 +22,7 @@ class ModelSelection:
         try:
             self.xgboost_model = joblib.load(self.config.best_xgboost_model)
             self.lightgbm_model = joblib.load(self.config.best_lightgbm_model)
-            self.linear_model = joblib.load(self.config.best_lightgbm_model)
+            self.linear_model = joblib.load(self.config.best_linear_model)
         except FileNotFoundError as e:
             logger.error("Model could not be loaded: {}".format(e))
 

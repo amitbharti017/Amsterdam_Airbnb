@@ -28,3 +28,22 @@ class DataTrainerConfig:
     best_xgboost_model: Path
     best_lightgbm_model: Path
     best_linear_model: Path
+
+@dataclass(frozen=True)
+class ModelSelectionConfig:
+    root_dir: Path
+    val_data_X_path: Path
+    val_data_y_path: Path
+    best_xgboost_model: Path
+    best_lightgbm_model: Path
+    best_linear_model: Path
+    best_model: Path
+    val_metric_file_name: Path
+
+@dataclass(frozen=True)
+class ModelEvaluationConfig:
+    root_dir: Path
+    test_data_X_path: Path
+    test_data_y_path: Path
+    model_path: Path
+    metric_file_name: Path

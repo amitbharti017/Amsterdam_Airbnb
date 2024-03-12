@@ -3,6 +3,9 @@ from utils.common import read_yaml, create_directories
 from entity.config_entity import DataIngestionConfig
 from entity.config_entity import DataTransformationConfig
 from entity.config_entity import DataTrainerConfig
+from entity.config_entity import ModelSelectionConfig
+from entity.config_entity import ModelEvaluationConfig
+
 
 
 class ConfigurationManager:
@@ -58,5 +61,35 @@ class ConfigurationManager:
             best_linear_model = config.best_linear_model)
         
         return model_trainer_config
+    
+    def get_model_selection_config(self)->ModelSelectionConfig:
+        config = self.config.model_selection
+
+        create_directories([config.root_dir])
+        model_selection_config = ModelSelectionConfig(
+            root_dir = config.root_dir,
+            val_data_X_path = config.val_data_X_path,
+            val_data_y_path = config.val_data_y_path,
+            best_xgboost_model = config.best_xgboost_model,
+            best_lightgbm_model = config.best_lightgbm_model,
+            best_linear_model = config.best_linear_model,
+            best_model = config.best_model,
+            val_metric_file_name = config.val_metric_file_name)
+        
+        return model_selection_config
+    
+    def get_model_evaluation_config(self)-> ModelEvaluationConfig:
+        config = self.config.model_evaluation
+
+        create_directories([config.root_dir])
+        model_evaluation_config = ModelEvaluationConfig(
+                root_dir = config.root_dir,
+                test_data_X_path = config.test_data_X_path,
+                test_data_y_path = config.test_data_y_path,
+                model_path = config.model_path,
+                metric_file_name = config.metric_file_name)
+        return model_evaluation_config
+
+
 
 

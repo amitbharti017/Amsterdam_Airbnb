@@ -9,6 +9,7 @@ from box import ConfigBox
 from pathlib import Path
 from typing import Any
 import mlflow
+from sklearn.metrics import root_mean_squared_error
 
 @ensure_annotations
 def read_yaml(path_to_yaml: Path) -> ConfigBox:
@@ -89,11 +90,26 @@ def get_size(path: Path) -> str:
     Args:
         path (Path): path of the file
     
-        Returns:
-            str: size of the file in KB
+    Returns:
+        str: size of the file in KB
     """
     size_in_kb = round(os.path.getsize(path)/1024)
     return f"~ {size_in_kb} KB"
+
+def rmse_metrics(true,pred) ->float:
+    """
+    get the true and predict values to calculate the root mean squared error
+    Args:
+        true: ground truth price of the listing
+        pred: predicted price of the listing
+    
+    Returns:
+        float: root mean square error in the pricing after transforming the data   
+    """
+    true_value = np.expm1(true)
+    predict_value = np.expm1(pred)
+    return root_mean_squared_error(true_value,predict_value)
+
 
 # def create_mlflow_experiment(experiment_name:str,artifact_location:str, tags:dict[str, Any]) -> str:
 #     """

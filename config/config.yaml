@@ -24,10 +24,22 @@ model_trainer:
   best_lightgbm_model: "best_lightgbm_model.pkl"
   best_linear_model: "best_linear_model.pkl"
 
+model_selection:
+  root_dir: artifacts/model_selection
+  val_data_X_path: "artifacts/data_transformation/X_val.joblib"
+  val_data_y_path: "artifacts/data_transformation/y_val.joblib"
+  best_xgboost_model: "artifacts/model_trainer/best_xgboost_model.pkl"
+  best_lightgbm_model: "artifacts/model_trainer/best_lightgbm_model.pkl"
+  best_linear_model: "artifacts/model_trainer/best_linear_model.pkl"
+  best_model: "best_model.pkl"
+  val_metric_file_name: artifacts/model_selection/val_metrics.json
+
 model_evaluation:
   root_dir: artifacts/model_evaluation
-  test_data_X_path: "artifacts/data_transformation/X_val.joblib"
-  test_data_y_val_path: "artifacts/data_transformation/y_val.joblib"
+  test_data_X_path: "artifacts/data_transformation/X_test.joblib"
+  test_data_y_path: "artifacts/data_transformation/y_test.joblib"
+  model_path: "artifacts/model_selection/best_model.pkl"
+  metric_file_name: artifacts/model_evaluation/metric.json
 
 
 

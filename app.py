@@ -6,7 +6,9 @@ from pipeline.prediction import PredictionPipeline
 
 app = Flask(__name__) #initializing the flask app
 
-@app.route("/")
+@app.route("/",methods=["GET"])
+def home_page():
+    return render_template("index.html")
 
 
 

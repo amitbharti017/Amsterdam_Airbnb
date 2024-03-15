@@ -8,18 +8,6 @@ import pandas as pd
 
 # Creating a function by which Gradio will present the predicted price
 
-# <!-- def estimate(Brand, Product, ProcessorType, ProcessorCore,
-#                       ProcessorGen, RAM, Opsys, HDD_Storage,
-#                       SSD_Storage, Display, Warranty, Rating):
-    
-#         model=joblib.load("LaptopPriceModel2.sav")
-
-#         outcome = model.predict([[Brand, Product, ProcessorType, ProcessorCore,
-#                               ProcessorGen, RAM, Opsys, HDD_Storage,
-#                               SSD_Storage, Display, Warranty, Rating]])
-#         return outcome
-#  -->
-
 def predict_function(host_since, host_is_superhost,host_listings_count,accommodates, private,bathrooms,beds, number_of_reviews,review_scores_rating,availability_365,minimum_nights,room_type,neighbourhood_cleansed):
     model = joblib.load("artifacts/model_selection/best_model.pkl")
     preprocessor = joblib.load(Path("artifacts/data_transformation/data_transformer.joblib"))
@@ -50,9 +38,9 @@ def predict_function(host_since, host_is_superhost,host_listings_count,accommoda
     )
     logger.info("Input data is %s",df_test)
 
-    df_test = preprocessor(df_test)
+    df_test = preprocessor.transform(df_test)
     prediction = model.predict(df_test)
-    return prediction
+    return np.expm1(prediction)
 
 
 
@@ -89,12 +77,13 @@ Price = gd.Number()
 
 webapp = gd.Interface(fn = predict_function, inputs = [host_since, host_is_superhost,
                                             host_listings_count, 
-                                            neighbourhood_cleansed,
-                                            room_type, 
-                                            accommodates, bathrooms, 
-                                            private_bathroom, beds, 
-                                            number_of_reviews, availability_365, 
-                                            minimum_nights,review_scores_rating], outputs = Price)
+                                            accommodates,private_bathroom, bathrooms, 
+                                            beds, 
+                                            number_of_reviews,  
+                                            minimum_nights,
+                                            availability_365,review_scores_rating,
+                                            room_type,neighbourhood_cleansed],
+                                              outputs = Price)
 
 # Deploying the model
 webapp.launch(share = 'True')
